@@ -1,11 +1,11 @@
-# 🚀 Professional 3D Portfolio Website
+# 🚀 Professional 2D Portfolio Website
 
-A modern, professional portfolio website built with Next.js, featuring stunning 3D animations, smooth interactions, and a world-class design that showcases frontend development expertise.
+A modern, professional portfolio website built with Next.js, featuring stunning CSS animations, smooth interactions, and a world-class design that showcases frontend development expertise.
 
 ## ✨ Features
 
 - **Modern Design**: Professional and clean UI with gradient accents
-- **3D Animations**: Interactive 3D elements using Three.js and React Three Fiber
+- **CSS Animations**: Beautiful 2D animations using CSS and Framer Motion
 - **Responsive Layout**: Mobile-first design that works on all devices
 - **Smooth Animations**: Framer Motion powered animations and transitions
 - **Dark Mode Support**: Automatic dark/light mode detection
@@ -16,7 +16,7 @@ A modern, professional portfolio website built with Next.js, featuring stunning 
 
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Styling**: Tailwind CSS v4, Custom CSS
-- **Animations**: Framer Motion, Three.js, React Three Fiber
+- **Animations**: Framer Motion, CSS Animations
 - **Icons**: Lucide React
 - **UI Components**: Headless UI
 - **Development**: ESLint, Prettier
@@ -100,7 +100,7 @@ Update the following files with your information:
 ## 📱 Sections Overview
 
 ### 1. **Hero Section**
-- 3D animated background with Three.js
+- CSS animated background with gradients
 - Professional introduction and call-to-action buttons
 - Social media links and scroll indicator
 
@@ -163,7 +163,7 @@ npm run type-check   # Run TypeScript check
 - **Performance Focused**: Optimized for speed and user experience
 - **Mobile Responsive**: Works perfectly on all devices
 - **SEO Optimized**: Proper meta tags and structured content
-- **Interactive Elements**: Engaging 3D animations and smooth transitions
+- **Interactive Elements**: Engaging CSS animations and smooth transitions
 
 ## 📊 Performance
 
@@ -197,3 +197,4 @@ If you have any questions or need help customizing the portfolio:
 **Built with ❤️ using Next.js, Three.js, and modern web technologies**
 
 *Perfect for showcasing your frontend development skills to potential employers!*
+# nextjs-portfolio
