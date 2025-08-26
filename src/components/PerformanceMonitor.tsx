@@ -1,148 +1,187 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getMemoryUsage, getDeviceCapabilities, getOptimizedAnimationSettings } from '@/utils/performance';
-
-interface PerformanceMetrics {
-  memory: ReturnType<typeof getMemoryUsage>;
-  capabilities: ReturnType<typeof getDeviceCapabilities>;
-  animationSettings: ReturnType<typeof getOptimizedAnimationSettings>;
-  timestamp: string;
-}
-
-interface FirstInputEntry extends PerformanceEntry {
-  processingStart: number;
-}
-
-interface LayoutShiftEntry extends PerformanceEntry {
-  value: number;
-}
+import { motion } from 'framer-motion';
+import { Zap, AlertTriangle, CheckCircle, Info, X } from 'lucide-react';
 
 const PerformanceMonitor = () => {
-  const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [performanceData, setPerformanceData] = useState({
+    fps: 0,
+    memory: 0,
+    loadTime: 0,
+    isLowPerformance: false,
+    suggestions: []
+  });
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
-    // Only show in development mode
+    // Only show in development
     if (process.env.NODE_ENV !== 'development') return;
 
-    const updateMetrics = () => {
-      const memory = getMemoryUsage();
-      const capabilities = getDeviceCapabilities();
-      const animationSettings = getOptimizedAnimationSettings();
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let animationId: number;
 
-      setMetrics({
-        memory,
-        capabilities,
-        animationSettings,
-        timestamp: new Date().toLocaleTimeString(),
-      });
+    const measurePerformance = () => {
+      frameCount++;
+      const currentTime = performance.now();
+      
+      if (currentTime - lastTime >= 1000) {
+        const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+        const memory = (performance as any).memory ? 
+          Math.round((performance as any).memory.usedJSHeapSize / 1024 / 1024) : 0;
+        
+        const isLowPerformance = fps < 30 || memory > 100;
+        const suggestions = [];
+        
+        if (fps < 30) {
+          suggestions.push('Reduce animation complexity');
+          suggestions.push('Optimize CSS animations');
+        }
+        if (memory > 100) {
+          suggestions.push('Check for memory leaks');
+          suggestions.push('Optimize image loading');
+        }
+        if (fps < 20) {
+          suggestions.push('Consider reducing motion');
+        }
+
+        setPerformanceData({
+          fps,
+          memory,
+          loadTime: performance.now() - performance.timing.navigationStart,
+          isLowPerformance,
+          suggestions
+        });
+        
+        frameCount = 0;
+        lastTime = currentTime;
+      }
+      
+      animationId = requestAnimationFrame(measurePerformance);
     };
 
-    // Update metrics every 5 seconds
-    const interval = setInterval(updateMetrics, 5000);
-    updateMetrics(); // Initial update
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Performance monitoring
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Core Web Vitals monitoring
-    const observer = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.entryType === 'largest-contentful-paint') {
-          console.log('LCP:', entry.startTime);
-        }
-        if (entry.entryType === 'first-input') {
-          const firstInputEntry = entry as FirstInputEntry;
-          console.log('FID:', firstInputEntry.processingStart - firstInputEntry.startTime);
-        }
-        if (entry.entryType === 'layout-shift') {
-          const layoutShiftEntry = entry as LayoutShiftEntry;
-          console.log('CLS:', layoutShiftEntry.value);
-        }
-      }
-    });
-
-    try {
-      observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
-    } catch {
-      console.log('PerformanceObserver not supported');
-    }
-
-    // Long task monitoring
-    const longTaskObserver = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.duration > 50) {
-          console.warn('Long task detected:', entry.duration, 'ms');
-        }
-      }
-    });
-
-    try {
-      longTaskObserver.observe({ entryTypes: ['longtask'] });
-    } catch {
-      console.log('LongTask observer not supported');
-    }
+    measurePerformance();
 
     return () => {
-      observer.disconnect();
-      longTaskObserver.disconnect();
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
   }, []);
 
-  if (process.env.NODE_ENV !== 'development' || !metrics) {
-    return null;
-  }
+  useEffect(() => {
+    // Show performance monitor after 3 seconds
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isVisible || process.env.NODE_ENV !== 'development') return null;
 
   return (
-    <div className="fixed bottom-4 right-4 bg-black/80 backdrop-blur-sm border border-gray-600 rounded-lg p-4 text-xs text-white max-w-xs z-50">
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="font-bold text-cyan-400">Performance Monitor</h3>
-        <button
-          onClick={() => setIsVisible(!isVisible)}
-          className="text-gray-400 hover:text-white"
-        >
-          {isVisible ? '−' : '+'}
-        </button>
-      </div>
-      
-      {isVisible && (
-        <div className="space-y-2">
-          <div>
-            <span className="text-gray-400">Memory:</span>
-            <div className="ml-2">
-              <div>Used: {metrics.memory?.usedJSHeapSize} MB</div>
-              <div>Total: {metrics.memory?.totalJSHeapSize} MB</div>
-            </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="fixed bottom-4 right-4 z-50"
+    >
+      <div className="bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-4 shadow-2xl max-w-sm">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <Zap className="text-cyan-400" size={20} />
+            <span className="text-white font-bold text-sm">Performance Monitor</span>
+          </div>
+          <button
+            onClick={() => setIsVisible(false)}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="space-y-2 mb-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-300">FPS:</span>
+            <span className={`font-bold ${
+              performanceData.fps >= 50 ? 'text-green-400' : 
+              performanceData.fps >= 30 ? 'text-yellow-400' : 'text-red-400'
+            }`}>
+              {performanceData.fps}
+            </span>
           </div>
           
-          <div>
-            <span className="text-gray-400">Device:</span>
-            <div className="ml-2">
-              <div>Mobile: {metrics.capabilities.isMobile ? 'Yes' : 'No'}</div>
-              <div>Low-end: {metrics.capabilities.isLowEnd ? 'Yes' : 'No'}</div>
-              <div>WebGL: {metrics.capabilities.supportsWebGL ? 'Yes' : 'No'}</div>
-            </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-300">Memory:</span>
+            <span className={`font-bold ${
+              performanceData.memory < 50 ? 'text-green-400' : 
+              performanceData.memory < 100 ? 'text-yellow-400' : 'text-red-400'
+            }`}>
+              {performanceData.memory}MB
+            </span>
           </div>
           
-          <div>
-            <span className="text-gray-400">Optimizations:</span>
-            <div className="ml-2">
-              <div>3D: {metrics.animationSettings.disable3D ? 'Disabled' : 'Enabled'}</div>
-              <div>Effects: {metrics.animationSettings.simplifiedEffects ? 'Simple' : 'Full'}</div>
-            </div>
-          </div>
-          
-          <div className="text-gray-500 text-xs">
-            Updated: {metrics.timestamp}
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-300">Load Time:</span>
+            <span className="text-white font-bold">
+              {Math.round(performanceData.loadTime)}ms
+            </span>
           </div>
         </div>
-      )}
-    </div>
+
+        {performanceData.isLowPerformance && (
+          <div className="border-t border-cyan-500/30 pt-3">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangle className="text-yellow-400" size={16} />
+              <span className="text-yellow-400 text-sm font-medium">Performance Issues Detected</span>
+            </div>
+            
+            <div className="space-y-1">
+              {performanceData.suggestions.map((suggestion, index) => (
+                <div key={index} className="flex items-center gap-2 text-xs text-gray-300">
+                  <div className="w-1 h-1 bg-yellow-400 rounded-full" />
+                  {suggestion}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!performanceData.isLowPerformance && (
+          <div className="border-t border-cyan-500/30 pt-3">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="text-green-400" size={16} />
+              <span className="text-green-400 text-sm font-medium">Performance is Good</span>
+            </div>
+          </div>
+        )}
+
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className="w-full mt-3 text-center text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+        >
+          {showDetails ? 'Hide Details' : 'Show Details'}
+        </button>
+
+        {showDetails && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="border-t border-cyan-500/30 pt-3 mt-3"
+          >
+            <div className="text-xs text-gray-400 space-y-1">
+              <div>• CSS Animations: {performanceData.fps < 30 ? 'Optimizing...' : 'Optimal'}</div>
+              <div>• Memory Usage: {performanceData.memory > 100 ? 'High' : 'Normal'}</div>
+              <div>• Page Load: {performanceData.loadTime > 3000 ? 'Slow' : 'Fast'}</div>
+              <div>• Overall: {performanceData.isLowPerformance ? 'Needs Attention' : 'Excellent'}</div>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
   );
 };
 
