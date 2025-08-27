@@ -7,9 +7,16 @@ import { Download, Github, Linkedin, Mail, ArrowDown, Sparkles, Zap, Target } fr
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   // Intersection Observer for performance
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -24,11 +31,12 @@ const Hero = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [isClient]);
 
   const scrollToAbout = useCallback(() => {
+    if (!isClient) return;
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  }, [isClient]);
 
   // Memoize grid lines to prevent unnecessary re-renders
   const gridLines = useMemo(() => {
@@ -84,17 +92,23 @@ const Hero = () => {
 
   // Memoize floating elements
   const floatingElements = useMemo(() => {
-    if (!isVisible) return null;
+    if (!isVisible || !isClient) return null;
+    
+    // Deterministic positions and animations
+    const elements = [
+      { left: '20%', top: '30%', duration: 4.5, delay: 0.3 },
+      { left: '80%', top: '70%', duration: 5.2, delay: 1.1 }
+    ];
     
     return (
       <>
-        {[...Array(2)].map((_, i) => (
+        {elements.map((element, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-cyan-400 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: element.left,
+              top: element.top,
             }}
             initial={{ opacity: 0, y: 0, scale: 1 }}
             animate={{
@@ -103,15 +117,15 @@ const Hero = () => {
               scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: element.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: element.delay,
             }}
           />
         ))}
       </>
     );
-  }, [isVisible]);
+  }, [isVisible, isClient]);
 
   return (
     <section ref={containerRef} className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">

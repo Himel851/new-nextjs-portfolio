@@ -1,9 +1,25 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Building, Award, Users, TrendingUp, Rocket, Brain, Cpu, Atom, Sparkles, Target } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Rocket, Brain, Target, Sparkles, Building, Calendar, MapPin, ExternalLink, ChevronRight, Zap, Award, Users, TrendingUp, Code, Globe, Smartphone, Database, Shield, Cpu, Atom, Star, CheckCircle, ArrowRight, Lightbulb, Clock, DollarSign, BarChart3, PieChart, LineChart, Activity, Target as TargetIcon, Zap as ZapIcon, Shield as ShieldIcon, Cpu as CpuIcon, Atom as AtomIcon, Star as StarIcon, CheckCircle as CheckCircleIcon, ArrowRight as ArrowRightIcon, Lightbulb as LightbulbIcon, Clock as ClockIcon, DollarSign as DollarSignIcon, BarChart3 as BarChart3Icon, PieChart as PieChartIcon, LineChart as LineChartIcon, Activity as ActivityIcon } from 'lucide-react';
 
 const Experience = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Deterministic floating elements
+  const floatingElements = Array.from({ length: 15 }, (_, i) => ({
+    id: i,
+    left: `${(i * 7) % 100}%`,
+    top: `${(i * 11) % 100}%`,
+    duration: 6 + (i % 3),
+    delay: (i % 4) * 0.8,
+  }));
+
   const experiences = [
     {
       company: 'StoreX E-commerce Automation',
@@ -76,13 +92,13 @@ const Experience = () => {
       
       {/* Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {isClient && floatingElements.map((item) => (
           <motion.div
-            key={i}
+            key={item.id}
             className="absolute w-2 h-2 bg-orange-400 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: item.left,
+              top: item.top,
             }}
             animate={{
               y: [0, -80, 0],
@@ -90,9 +106,9 @@ const Experience = () => {
               scale: [0.5, 1.5, 0.5],
             }}
             transition={{
-              duration: 6 + Math.random() * 3,
+              duration: item.duration,
               repeat: Infinity,
-              delay: Math.random() * 4,
+              delay: item.delay,
             }}
           />
         ))}

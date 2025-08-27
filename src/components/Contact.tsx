@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Mail, 
@@ -24,6 +24,7 @@ import {
 import { AnimatePresence } from 'framer-motion';
 
 const Contact = () => {
+  const [isClient, setIsClient] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,6 +33,19 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Deterministic floating elements
+  const floatingElements = Array.from({ length: 18 }, (_, i) => ({
+    id: i,
+    left: `${(i * 5.5) % 100}%`,
+    top: `${(i * 8) % 100}%`,
+    duration: 7 + (i % 4),
+    delay: (i % 5) * 0.8,
+  }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,13 +74,13 @@ const Contact = () => {
       
       {/* Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(18)].map((_, i) => (
+        {isClient && floatingElements.map((item) => (
           <motion.div
-            key={i}
+            key={item.id}
             className="absolute w-1 h-1 bg-pink-400 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: item.left,
+              top: item.top,
             }}
             animate={{
               y: [0, -60, 0],
@@ -74,9 +88,9 @@ const Contact = () => {
               scale: [0.5, 1.5, 0.5],
             }}
             transition={{
-              duration: 7 + Math.random() * 4,
+              duration: item.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: item.delay,
             }}
           />
         ))}
