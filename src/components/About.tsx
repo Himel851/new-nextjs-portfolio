@@ -2,8 +2,30 @@
 
 import { motion } from 'framer-motion';
 import { Code, Globe, Smartphone, Database, Zap, Shield, Rocket, Brain, Cpu, Atom } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const About = () => {
+  const [isClient, setIsClient] = useState(false);
+  const [particles, setParticles] = useState<Array<{
+    id: number;
+    left: string;
+    top: string;
+    duration: number;
+    delay: number;
+  }>>([]);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Generate particles
+    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      duration: 3 + Math.random() * 2,
+      delay: Math.random() * 2,
+    }));
+    setParticles(newParticles);
+  }, []);
   const features = [
     {
       icon: Code,
