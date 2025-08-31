@@ -4,9 +4,6 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: [
-      '@react-three/fiber',
-      '@react-three/drei',
-      '@react-three/postprocessing',
       'framer-motion',
       'gsap',
       'lucide-react'
@@ -25,21 +22,24 @@ const nextConfig: NextConfig = {
 
   // Webpack optimizations
   webpack: (config, { dev, isServer }) => {
-    // Bundle analyzer for production builds
-    if (!dev && !isServer) {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'static',
-          openAnalyzer: false,
-        })
-      );
+    // Bundle analyzer for production builds (optional)
+    if (!dev && !isServer && process.env.ANALYZE === 'true') {
+      try {
+        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+          })
+        );
+      } catch (error) {
+        console.log('webpack-bundle-analyzer not found, skipping...');
+      }
     }
 
-    // Optimize Three.js imports
+    // Optimize module resolution
     config.resolve.alias = {
       ...config.resolve.alias,
-      'three': require.resolve('three'),
     };
 
     // Split chunks for better caching
@@ -52,12 +52,7 @@ const nextConfig: NextConfig = {
           chunks: 'all',
           priority: 10,
         },
-        three: {
-          test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
-          name: 'three',
-          chunks: 'all',
-          priority: 20,
-        },
+
         framer: {
           test: /[\\/]node_modules[\\/](framer-motion)[\\/]/,
           name: 'framer',

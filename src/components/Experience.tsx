@@ -39,7 +39,7 @@ const Experience = () => {
       color: 'from-cyan-500 to-blue-500'
     },
     {
-      company: 'Solutya Pvt. Ltd.',
+      company: 'Microdeft',
       position: 'Frontend Developer',
       duration: 'January 2023 - June 2024',
       location: 'Dhaka, Bangladesh',

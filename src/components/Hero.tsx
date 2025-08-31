@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Github, Linkedin, Mail, ArrowDown, Sparkles, Zap, Target } from 'lucide-react';
+import { Download, Github, Linkedin, Mail, Sparkles, Zap, Target } from 'lucide-react';
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -150,16 +150,20 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="mb-6"
           >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Sparkles className="text-cyan-400 animate-pulse" size={24} />
-              <span className="text-lg md:text-xl text-cyan-400 font-medium tracking-wider">
-                FUTURE IS NOW
-              </span>
-              <Sparkles className="text-cyan-400 animate-pulse" size={24} />
-            </div>
+
             <span className="text-lg md:text-xl text-indigo-400 dark:text-indigo-300 font-medium tracking-wider">
               Hello, I&apos;m
             </span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+              transition={{ duration: 0.8, delay: 0.05 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-4 mb-6"
+            >
+              <span className="bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                Nazmul Hasan Himel
+              </span>
+            </motion.h2>
           </motion.div>
 
           {/* Enhanced 2D Main Title with CSS effects */}
@@ -203,7 +207,7 @@ const Hero = () => {
             <span className="text-indigo-400 font-medium">cutting-edge technologies</span>. 
             Specialized in <span className="text-purple-400 font-medium">React</span>,{' '}
             <span className="text-pink-400 font-medium">Next.js</span>, and{' '}
-            <span className="text-red-400 font-medium">TypeScript</span> with 3+ years of expertise 
+            <span className="text-red-400 font-medium">TypeScript</span> with 2+ years of expertise 
             in building <span className="text-cyan-400 font-medium">scalable web applications</span>.
           </motion.p>
 
@@ -249,13 +253,15 @@ const Hero = () => {
             className="flex justify-center items-center gap-6 mb-12"
           >
             {[
-              { icon: Github, href: '#', label: 'GitHub', color: 'from-gray-600 to-gray-800' },
-              { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
-              { icon: Mail, href: '#', label: 'Email', color: 'from-red-500 to-red-700' },
+              { icon: Github, href: 'https://github.com/Himel851', label: 'GitHub', color: 'from-gray-600 to-gray-800' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/nazmulhimel96/', label: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
+              { icon: Mail, href: 'mailto:himel.cse96@gmail.com', label: 'Email', color: 'from-red-500 to-red-700' },
             ].map((social) => (
               <motion.a
                 key={social.label}
                 href={social.href}
+                rel="noopener noreferrer"
+                target="_blank"
                 whileHover={{ scale: 1.08, y: -3, rotate: 360 }}
                 whileTap={{ scale: 0.92 }}
                 className={`p-4 bg-gradient-to-br ${social.color} rounded-2xl shadow-2xl hover:shadow-lg transition-all duration-300 text-white backdrop-blur-sm border border-white/20`}
@@ -264,23 +270,6 @@ const Hero = () => {
                 <social.icon size={28} />
               </motion.a>
             ))}
-          </motion.div>
-
-          {/* Optimized Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isVisible ? 1 : 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.button
-              onClick={scrollToAbout}
-              animate={{ y: isVisible ? [0, 8, 0] : 0 }}
-              transition={{ duration: 2.5, repeat: Infinity }}
-              className="group p-4 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-md hover:from-cyan-500/40 hover:to-purple-500/40 transition-all duration-300 border border-cyan-400/30"
-            >
-              <ArrowDown size={28} className="text-cyan-400 group-hover:text-white transition-colors" />
-            </motion.button>
           </motion.div>
         </div>
       </div>

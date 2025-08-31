@@ -45,12 +45,12 @@ const About = () => {
       description: 'Creating responsive and mobile-optimized web applications',
       color: 'from-purple-500 to-pink-500'
     },
-    {
-      icon: Database,
-      title: 'Backend Knowledge',
-      description: 'Experience with Node.js, Express, MongoDB, and GraphQL',
-      color: 'from-pink-500 to-red-500'
-    },
+    // {
+    //   icon: Database,
+    //   title: 'Backend Knowledge',
+    //   description: 'Experience with Node.js, Express, MongoDB, and GraphQL',
+    //   color: 'from-pink-500 to-red-500'
+    // },
     {
       icon: Zap,
       title: 'Performance',
@@ -111,7 +111,7 @@ const About = () => {
             <Rocket className="text-cyan-400 animate-pulse" size={32} />
           </div>
           <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
-            I&apos;m a <span className="text-cyan-400 font-medium">passionate Frontend Developer</span> with 3+ years of experience crafting 
+            I&apos;m a <span className="text-cyan-400 font-medium">passionate Frontend Developer</span> with 2+ years of experience crafting 
             <span className="text-purple-400 font-medium"> exceptional digital experiences</span>. I specialize in <span className="text-pink-400 font-medium">modern web technologies</span> 
             and love turning complex problems into simple, <span className="text-cyan-400 font-medium">beautiful solutions</span>.
           </p>
@@ -159,8 +159,8 @@ const About = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
         >
           {[
-            { number: '3+', label: 'Years Experience', icon: '🚀', color: 'from-cyan-500 to-blue-500' },
-            { number: '50+', label: 'Projects Completed', icon: '🎯', color: 'from-blue-500 to-purple-500' },
+            { number: '2+', label: 'Years Experience', icon: '🚀', color: 'from-cyan-500 to-blue-500' },
+            { number: '30+', label: 'Projects Completed', icon: '🎯', color: 'from-blue-500 to-purple-500' },
             { number: '100%', label: 'Client Satisfaction', icon: '⭐', color: 'from-purple-500 to-pink-500' },
             { number: '24/7', label: 'Support Available', icon: '⚡', color: 'from-pink-500 to-red-500' },
           ].map((stat, index) => (

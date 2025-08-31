@@ -30,18 +30,18 @@ const Skills = () => {
         { name: 'Tailwind CSS', level: 90 },
       ]
     },
-    {
-      title: 'Backend & Database',
-      icon: Database,
-      skills: [
-        { name: 'Node.js', level: 85 },
-        { name: 'Express.js', level: 80 },
-        { name: 'MongoDB', level: 75 },
-        { name: 'GraphQL', level: 70 },
-        { name: 'REST APIs', level: 90 },
-        { name: 'JWT Authentication', level: 85 },
-      ]
-    },
+    // {
+    //   title: 'Backend & Database',
+    //   icon: Database,
+    //   skills: [
+    //     { name: 'Node.js', level: 85 },
+    //     { name: 'Express.js', level: 80 },
+    //     { name: 'MongoDB', level: 75 },
+    //     { name: 'GraphQL', level: 70 },
+    //     { name: 'REST APIs', level: 90 },
+    //     { name: 'JWT Authentication', level: 85 },
+    //   ]
+    // },
     {
       title: 'Development Tools',
       icon: GitBranch,
@@ -50,8 +50,8 @@ const Skills = () => {
         { name: 'VS Code', level: 95 },
         { name: 'Webpack/Vite', level: 80 },
         { name: 'ESLint & Prettier', level: 85 },
-        { name: 'Jest & Testing', level: 75 },
-        { name: 'Docker Basics', level: 70 },
+        // { name: 'Jest & Testing', level: 75 },
+        // { name: 'Docker Basics', level: 70 },
       ]
     },
     {
@@ -62,7 +62,7 @@ const Skills = () => {
         { name: 'Performance Metrics', level: 80 },
         { name: 'Lighthouse', level: 85 },
         { name: 'Image Optimization', level: 90 },
-        { name: 'Code Splitting', level: 80 },
+        // { name: 'Code Splitting', level: 80 },
         { name: 'Caching Strategies', level: 75 },
       ]
     },
@@ -75,7 +75,7 @@ const Skills = () => {
         { name: 'Figma Basics', level: 75 },
         { name: 'Accessibility', level: 80 },
         { name: 'Design Systems', level: 85 },
-        { name: 'Animation Libraries', level: 90 },
+        // { name: 'Animation Libraries', level: 90 },
       ]
     },
     {
@@ -84,13 +84,27 @@ const Skills = () => {
       skills: [
         { name: 'Vercel', level: 90 },
         { name: 'Netlify', level: 85 },
-        { name: 'AWS Basics', level: 70 },
-        { name: 'CI/CD', level: 75 },
-        { name: 'Domain Management', level: 80 },
-        { name: 'SSL & Security', level: 85 },
+        // { name: 'AWS Basics', level: 70 },
+        // { name: 'CI/CD', level: 75 },
+        // { name: 'Domain Management', level: 80 },
+        // { name: 'SSL & Security', level: 85 },
       ]
     }
   ];
+  const otherSkills = [
+    "Conversion Tracking",
+    "Redux",
+    "Context API",
+    "React Query",
+    "Framer Motion",
+    "Sass/SCSS",
+    "Jest",
+    "React Testing Library",
+    "Storybook",
+    "JIRA",
+    "Slack",
+    "Postman",
+  ]
 
   return (
     <section className="section-padding bg-black relative overflow-hidden">
@@ -222,14 +236,7 @@ const Skills = () => {
             <Sparkles className="text-pink-400 animate-pulse" size={32} />
           </div>
           <div className="flex flex-wrap justify-center gap-4">
-            {[
-              'Redux', 'Context API', 'React Query', 'Framer Motion',
-              'Three.js', 'WebGL', 'PWA', 'Service Workers',
-              'Webpack', 'Babel', 'PostCSS', 'Sass/SCSS',
-              'Jest', 'React Testing Library', 'Cypress', 'Storybook',
-              'Agile/Scrum', 'JIRA', 'Confluence', 'Slack',
-              'Postman', 'Insomnia', 'MongoDB Compass', 'Robo 3T'
-            ].map((skill, index) => (
+            {otherSkills.map((skill, index) => (
               <motion.span
                 key={skill}
                 initial={{ opacity: 0, scale: 0.8 }}
