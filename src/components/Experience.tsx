@@ -22,19 +22,19 @@ const Experience = () => {
 
   const experiences = [
     {
-      company: 'StoreX E-commerce Automation',
+      company: 'StoreX',
       position: 'Frontend Developer',
-      duration: 'July 2024 - Present',
-      location: 'Remote',
+      duration: 'Sep 2024 - Present',
+      location: 'Bosila Garden City, Mohammadpur, Dhaka',
       type: 'Full-time',
       achievements: [
-        'Leading frontend development for e-commerce automation platform',
-        'Implementing advanced React patterns and state management solutions',
-        'Optimizing application performance and user experience',
-        'Collaborating with cross-functional teams on product development',
-        'Mentoring junior developers and conducting code reviews'
+        'Developing and Maintaining the admin panel for StoreX’s e-commerce platform, including design implementation and API integration',
+        'Converting Figma designs into responsive, user-friendly, and SEO-optimized web pages',
+        'Implementing advanced React patterns and modern state management solutions to improve code scalability',
+        'Working on Conversion APIs such as Facebook Conversion API and TikTok Conversion API to enhance marketing and analytics',
+        'Optimizing frontend performance and user experience across the platform'
       ],
-      technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Redux', 'GraphQL'],
+      technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Redux', 'Bootstrap', 'EJS', 'ShadCN UI', 'Ant Design'],
       logo: '🛍️',
       color: 'from-cyan-500 to-blue-500'
     },
