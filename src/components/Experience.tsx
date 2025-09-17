@@ -41,19 +41,38 @@ const Experience = () => {
     {
       company: 'Microdeft',
       position: 'Frontend Developer',
-      duration: 'January 2023 - June 2024',
-      location: 'Dhaka, Bangladesh',
+      duration: 'Aug 2023 - Jul 2024',
+      location: 'Banasree, Dhaka',
       type: 'Full-time',
       achievements: [
         'Developed and maintained multiple client websites and web applications',
         'Built responsive and accessible user interfaces using modern frameworks',
+        'Converted Figma designs into pixel-perfect, production-ready interfaces',
+        'Automated tasks and workflows using Puppeteer.js, including data collection from external websites',
         'Collaborated with designers and backend developers to deliver high-quality products',
         'Implemented SEO best practices and performance optimization',
-        'Participated in agile development processes and sprint planning'
       ],
-      technologies: ['React', 'JavaScript', 'HTML/CSS', 'Bootstrap', 'Node.js', 'MongoDB'],
+      
+      technologies: ['React', 'Next.js', 'Puppeteer.js', 'Tailwind CSS', 'Context API', 'JavaScript', 'HTML/CSS', 'Bootstrap'],
       logo: '💼',
       color: 'from-purple-500 to-pink-500'
+    },
+    {
+      company: 'Microdeft',
+      position: 'Frontend Developer Intern',
+      duration: 'Apr 2023 - Aug 2023',
+      location: 'Banasree, Dhaka',
+      type: 'Internship',
+      achievements: [
+        'Assisted in developing responsive web applications using React and modern JavaScript',
+        'Learned and applied frontend development best practices and design patterns',
+        'Collaborated with senior developers on various client projects',
+        'Gained hands-on experience with version control and team collaboration tools',
+        'Contributed to bug fixes and feature implementations under supervision'
+      ],
+      technologies: ['React', 'Next.js', 'JavaScript', 'HTML/CSS', 'Bootstrap', 'Git'],
+      logo: '💼',
+      color: 'from-blue-500 to-purple-500'
     }
   ];
 
