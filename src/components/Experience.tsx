@@ -1,24 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { Rocket, Brain, Target, Sparkles, Building, Calendar, MapPin, ExternalLink, ChevronRight, Zap, Award, Users, TrendingUp, Code, Globe, Smartphone, Database, Shield, Cpu, Atom, Star, CheckCircle, ArrowRight, Lightbulb, Clock, DollarSign, BarChart3, PieChart, LineChart, Activity, Target as TargetIcon, Zap as ZapIcon, Shield as ShieldIcon, Cpu as CpuIcon, Atom as AtomIcon, Star as StarIcon, CheckCircle as CheckCircleIcon, ArrowRight as ArrowRightIcon, Lightbulb as LightbulbIcon, Clock as ClockIcon, DollarSign as DollarSignIcon, BarChart3 as BarChart3Icon, PieChart as PieChartIcon, LineChart as LineChartIcon, Activity as ActivityIcon } from 'lucide-react';
+import { Rocket, Brain, Target, Sparkles, Building, Calendar, MapPin, Award, Users, TrendingUp, Cpu, Atom } from 'lucide-react';
 
 const Experience = () => {
-  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Deterministic floating elements
-  const floatingElements = Array.from({ length: 15 }, (_, i) => ({
-    id: i,
-    left: `${(i * 7) % 100}%`,
-    top: `${(i * 11) % 100}%`,
-    duration: 6 + (i % 3),
-    delay: (i % 4) * 0.8,
-  }));
 
   const experiences = [
     {
@@ -105,33 +91,8 @@ const Experience = () => {
 
   return (
     <section className="section-padding bg-black relative overflow-hidden">
-      {/* Futuristic Background */}
+      {/* Simple Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,165,0,0.1),transparent_50%)]"></div>
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(255,165,0,0.03)_50%,transparent_70%)]"></div>
-      
-      {/* Floating Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {isClient && floatingElements.map((item) => (
-          <motion.div
-            key={item.id}
-            className="absolute w-2 h-2 bg-orange-400 rounded-full"
-            style={{
-              left: item.left,
-              top: item.top,
-            }}
-            animate={{
-              y: [0, -80, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [0.5, 1.5, 0.5],
-            }}
-            transition={{
-              duration: item.duration,
-              repeat: Infinity,
-              delay: item.delay,
-            }}
-          />
-        ))}
-      </div>
 
       <div className="container-custom relative z-10">
         <motion.div
@@ -168,13 +129,11 @@ const Experience = () => {
             {experiences.map((exp, index) => (
               <motion.div
                 key={`${exp.company}-${exp.position}`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className={`flex flex-col lg:flex-row gap-10 ${
-                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                }`}
+                className="flex flex-col lg:flex-row gap-10"
               >
                 {/* Content */}
                 <div className="flex-1">
@@ -269,12 +228,12 @@ const Experience = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {education.map((edu, index) => (
+            {education.map((edu) => (
               <motion.div
                 key={`${edu.institution}-${edu.course}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
                 className="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-3xl p-8 shadow-2xl hover:shadow-orange-500/25 transition-all duration-500 border border-slate-700/50 hover:border-orange-500/50 backdrop-blur-xl overflow-hidden"
               >
@@ -307,11 +266,11 @@ const Experience = () => {
           </div>
         </div>
 
-        {/* Futuristic Career Highlights */}
+        {/* Career Highlights */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="relative p-12 bg-gradient-to-r from-orange-900/20 to-red-900/20 rounded-3xl border border-orange-500/30 backdrop-blur-xl overflow-hidden"
         >
@@ -352,12 +311,12 @@ const Experience = () => {
                   description: 'Continuously learning and adapting to new technologies and methodologies',
                   color: 'from-pink-400 to-purple-400'
                 }
-              ].map((highlight, index) => (
+              ].map((highlight) => (
                 <motion.div
                   key={highlight.title}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
                   className="text-center group"
                 >
