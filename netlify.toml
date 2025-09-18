@@ -1,11 +1,13 @@
 [build]
-  command = "npm run build"
+  command = "bash build.sh"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22.19.0"
-  NPM_FLAGS = "--legacy-peer-deps"
+  NPM_FLAGS = "--legacy-peer-deps --no-cache --no-audit --no-fund"
   NPM_CONFIG_CACHE = "/opt/buildhome/.npm"
+  NPM_CONFIG_REGISTRY = "https://registry.npmjs.org/"
+  NPM_CONFIG_PREFER_OFFLINE = "false"
   
 [[plugins]]
   package = "@netlify/plugin-nextjs"

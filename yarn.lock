@@ -1,0 +1,2 @@
+# This file is intentionally empty to force npm usage
+# If npm continues to fail, switch to yarn by running: yarn install
