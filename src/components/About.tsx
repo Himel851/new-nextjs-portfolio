@@ -65,6 +65,29 @@ const About = () => {
     }
   ];
 
+  if (!isClient) {
+    return (
+      <section className="section-padding bg-black relative overflow-hidden">
+        <div className="container-custom relative z-10">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Rocket className="text-cyan-400 animate-pulse" size={32} />
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white">
+                About <span className="gradient-text">Me</span>
+              </h2>
+              <Rocket className="text-cyan-400 animate-pulse" size={32} />
+            </div>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+              I&apos;m a <span className="text-cyan-400 font-medium">passionate Frontend Developer</span> with 2+ years of experience crafting 
+              <span className="text-purple-400 font-medium"> exceptional digital experiences</span>. I specialize in <span className="text-pink-400 font-medium">modern web technologies</span> 
+              and love turning complex problems into simple, <span className="text-cyan-400 font-medium">beautiful solutions</span>.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="section-padding bg-black relative overflow-hidden">
       {/* Futuristic Background */}

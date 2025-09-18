@@ -66,6 +66,28 @@ const Contact = () => {
     });
   };
 
+  if (!isClient) {
+    return (
+      <section className="section-padding bg-black relative overflow-hidden">
+        <div className="container-custom relative z-10">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Rocket className="text-pink-400 animate-pulse" size={32} />
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+                Get In <span className="gradient-text">Touch</span>
+              </h2>
+              <Brain className="text-pink-400 animate-pulse" size={32} />
+            </div>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+              I&apos;m always excited to hear about new opportunities and interesting projects. 
+              Let&apos;s discuss how we can work together to create something <span className="text-pink-400 font-medium">amazing</span>.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="section-padding bg-black relative overflow-hidden">
       {/* Futuristic Background */}

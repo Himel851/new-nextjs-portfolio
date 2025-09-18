@@ -1,24 +1,17 @@
 'use client';
 
-import { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import PerformanceMonitor from '@/components/PerformanceMonitor';
 
-// Lazy load components for better performance
-const About = lazy(() => import('@/components/About'));
-const Skills = lazy(() => import('@/components/Skills'));
-const Experience = lazy(() => import('@/components/Experience'));
-const Projects = lazy(() => import('@/components/Projects'));
-const Contact = lazy(() => import('@/components/Contact'));
+// Direct imports to avoid lazy loading issues
+import About from '@/components/About';
+import Skills from '@/components/Skills';
+import Experience from '@/components/Experience';
+import Projects from '@/components/Projects';
+import Contact from '@/components/Contact';
 
-// Loading component for lazy loaded sections
-const SectionLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cyan-500"></div>
-  </div>
-);
 
 export default function Home() {
   return (
@@ -35,36 +28,26 @@ export default function Home() {
           <Hero />
         </section>
 
-        {/* Lazy loaded sections with Suspense */}
-        <Suspense fallback={<SectionLoader />}>
-          <section id="about">
-            <About />
-          </section>
-        </Suspense>
+        {/* Direct component sections */}
+        <section id="about">
+          <About />
+        </section>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="skills">
-            <Skills />
-          </section>
-        </Suspense>
+        <section id="skills">
+          <Skills />
+        </section>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="experience">
-            <Experience />
-          </section>
-        </Suspense>
+        <section id="experience">
+          <Experience />
+        </section>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="projects">
-            <Projects />
-          </section>
-        </Suspense>
+        <section id="projects">
+          <Projects />
+        </section>
 
-        <Suspense fallback={<SectionLoader />}>
-          <section id="contact">
-            <Contact />
-          </section>
-        </Suspense>
+        <section id="contact">
+          <Contact />
+        </section>
       </motion.div>
 
       {/* Performance Monitor - Only in development */}

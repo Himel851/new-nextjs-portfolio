@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
+import ClientOnly from "@/components/ClientOnly";
 
 export const metadata: Metadata = {
   title: "Portfolio - Frontend Developer",
@@ -9,6 +10,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Frontend Developer" }],
   manifest: "/manifest.json",
   robots: "index, follow",
+  // Cache prevention headers
+  other: {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Pragma": "no-cache",
+    "Expires": "0",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -55,8 +62,10 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </head>
-      <body className="antialiased bg-black text-white overflow-x-hidden">
-        <ServiceWorkerRegistration />
+      <body className="antialiased bg-black text-white overflow-x-hidden" suppressHydrationWarning={true}>
+        <ClientOnly>
+          <ServiceWorkerRegistration />
+        </ClientOnly>
         {children}
       </body>
     </html>

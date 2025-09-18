@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Code, 
@@ -16,6 +17,12 @@ import {
 } from 'lucide-react';
 
 const Skills = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const skillCategories = [
     {
       title: 'Frontend Technologies',
@@ -104,6 +111,28 @@ const Skills = () => {
     "Slack",
     "Postman",
   ]
+
+  if (!isClient) {
+    return (
+      <section className="section-padding bg-black relative overflow-hidden">
+        <div className="container-custom relative z-10">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Brain className="text-purple-400 animate-pulse" size={32} />
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+                Technical <span className="gradient-text">Skills</span>
+              </h2>
+              <Cpu className="text-purple-400 animate-pulse" size={32} />
+            </div>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+              I&apos;ve developed expertise in a wide range of technologies and tools, 
+              constantly learning and adapting to stay current with <span className="text-purple-400 font-medium">industry best practices</span>.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section-padding bg-black relative overflow-hidden">

@@ -1,10 +1,15 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Rocket, Brain, Target, Sparkles, Building, Calendar, MapPin, Award, Users, TrendingUp, Cpu, Atom } from 'lucide-react';
 
 const Experience = () => {
+  const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const experiences = [
     {
@@ -88,6 +93,28 @@ const Experience = () => {
       color: 'from-orange-500 to-red-500'
     }
   ];
+
+  if (!isClient) {
+    return (
+      <section className="section-padding bg-black relative overflow-hidden">
+        <div className="container-custom relative z-10">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Rocket className="text-orange-400 animate-pulse" size={32} />
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+                Work <span className="gradient-text">Experience</span>
+              </h2>
+              <Brain className="text-orange-400 animate-pulse" size={32} />
+            </div>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+              My professional journey in web development, showcasing growth, achievements, 
+              and the technologies I&apos;ve worked with across different companies.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section-padding bg-black relative overflow-hidden">

@@ -1,140 +1,41 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable experimental features for better performance
-  experimental: {
-    optimizePackageImports: [
-      'framer-motion',
-      'gsap',
-      'lucide-react'
-    ],
-  },
-
-  // Turbopack configuration for Next.js 15
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
-
-  // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Bundle analyzer for production builds (optional)
-    if (!dev && !isServer && process.env.ANALYZE === 'true') {
-      try {
-        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-        config.plugins.push(
-          new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            openAnalyzer: false,
-          })
-        );
-      } catch (error) {
-        console.log('webpack-bundle-analyzer not found, skipping...');
-      }
-    }
-
-    // Optimize module resolution
-    config.resolve.alias = {
-      ...config.resolve.alias,
-    };
-
-    // Split chunks for better caching
-    config.optimization.splitChunks = {
-      chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-          priority: 10,
-        },
-
-        framer: {
-          test: /[\\/]node_modules[\\/](framer-motion)[\\/]/,
-          name: 'framer',
-          chunks: 'all',
-          priority: 15,
-        },
-        gsap: {
-          test: /[\\/]node_modules[\\/](gsap|@gsap)[\\/]/,
-          name: 'gsap',
-          chunks: 'all',
-          priority: 15,
-        },
-      },
-    };
-
-    return config;
-  },
-
-  // Image optimization
+  // Static export configuration
+  output: 'export',
+  trailingSlash: true,
+  
+  // Disable image optimization for static export
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    unoptimized: true,
   },
-
-  // Compression
-  compress: true,
-
-  // Powered by header
-  poweredByHeader: false,
-
-  // React strict mode for better development
-  reactStrictMode: true,
-
-  // Headers for caching and performance
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
-      },
-      {
-        source: '/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/(.*).js',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/(.*).css',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
+  
+  // Disable server components completely
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+    serverComponentsExternalPackages: [],
+  },
+  
+  // Force client-side rendering
+  reactStrictMode: false,
+  
+  // Disable webpack cache and server components
+  webpack: (config, { dev, isServer }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    
+    // Disable server components in development
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    
+    return config;
   },
 };
 

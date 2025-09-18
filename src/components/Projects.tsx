@@ -1,33 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Eye, Code, Globe, Smartphone, Rocket, Brain, Sparkles, Target, Zap } from 'lucide-react';
+import { ExternalLink, Eye, Code, Globe, Smartphone, Rocket, Brain, Sparkles, Target, Zap } from 'lucide-react';
 
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const allProjects = [
     {
       id: 1,
-      title: 'E-commerce Platform',
-      description: 'A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, product management, shopping cart, and payment integration.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-      category: 'Full-Stack',
-      liveUrl: '#',
+      title: 'E-Commerce Tutorial & Management Platform',
+      description: 'Developed a comprehensive e-commerce tutorial platform featuring step-by-step video guidelines for business setup, marketing, logo design, product upload, and order management, providing an end-to-end learning and management solution.',
+      image: '/image/incubation.webp',
+      technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'ShadCN UI'],
+      category: 'Frontend',
+      liveUrl: 'https://edu.storex.com.bd/login',
       githubUrl: '#',
       featured: true,
       color: 'from-cyan-500 to-blue-500'
     },
     {
       id: 2,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
+      title: 'E-Commerce Website (Frontend Development)',
+      description: 'Developed a feature-rich e-commerce website with category-based product listings, promotional offers, and stock management, leveraging Redux Toolkit for efficient state management and scalable performance.',
+      image: '/image/fimon.webp',
+      technologies: ['Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS', "Radix UI", "React Splide", "Lucide React"],
       category: 'Frontend',
-      liveUrl: '#',
+      liveUrl: 'https://fimon.com.bd/',
       githubUrl: '#',
       featured: true,
       color: 'from-blue-500 to-purple-500'
@@ -121,6 +126,28 @@ const Projects = () => {
     }
   };
 
+  if (!isClient) {
+    return (
+      <section className="section-padding bg-black relative overflow-hidden">
+        <div className="container-custom relative z-10">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Rocket className="text-green-400 animate-pulse" size={32} />
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+                Featured <span className="gradient-text">Projects</span>
+              </h2>
+              <Brain className="text-green-400 animate-pulse" size={32} />
+            </div>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+              Here are some of my recent projects that showcase my skills and expertise in 
+              <span className="text-green-400 font-medium">modern web development</span>.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="section-padding bg-black relative overflow-hidden">
       {/* Futuristic Background */}
@@ -182,16 +209,24 @@ const Projects = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-3xl shadow-2xl hover:shadow-green-500/25 transition-all duration-500 overflow-hidden border border-slate-700/50 hover:border-green-500/50 backdrop-blur-xl project-card"
+                className={`group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-3xl shadow-2xl hover:shadow-green-500/25 transition-all duration-500 overflow-hidden border border-slate-700/50 hover:border-green-500/50 backdrop-blur-xl project-card hover:before:absolute hover:before:inset-0 hover:before:rounded-3xl hover:before:border hover:before:border-transparent hover:before:bg-gradient-to-r hover:before:${project.color} hover:before:opacity-20 hover:before:transition-opacity hover:before:duration-500 hover:before:pointer-events-none`}
               >
                 {/* Holographic Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
                 
                 {/* Project Image */}
                 <div className="relative h-48 bg-gradient-to-br from-slate-800 to-slate-700 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-6xl opacity-20">🚀</div>
-                  </div>
+                  {project.image && project.image !== '/api/placeholder/400/250' ? (
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-6xl opacity-20">🚀</div>
+                    </div>
+                  )}
                   <div className="absolute top-4 right-4">
                     <span className="px-4 py-2 bg-gradient-to-br from-slate-800/90 to-slate-700/90 text-gray-300 rounded-2xl text-sm font-medium flex items-center gap-2 backdrop-blur-sm border border-slate-600/50">
                       {getCategoryIcon(project.category)}
@@ -220,19 +255,26 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
+                  
 
                   {/* Action Buttons */}
                   <div className="flex gap-4">
-                    <motion.a
-                      href={project.liveUrl}
+                    <motion.div
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex-1 flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-2xl hover:shadow-green-500/25 transition-all duration-300 shadow-lg"
+                      className="flex-1"
                     >
-                      <Eye size={18} />
-                      Live Demo
-                    </motion.a>
-                    <motion.a
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold rounded-2xl hover:shadow-green-500/25 transition-all duration-300 shadow-lg"
+                      >
+                        <Eye size={18} />
+                        Live Demo
+                      </a>
+                    </motion.div>
+                    {/* <motion.a
                       href={project.githubUrl}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
@@ -240,12 +282,9 @@ const Projects = () => {
                     >
                       <Github size={18} />
                       Code
-                    </motion.a>
+                    </motion.a> */}
                   </div>
                 </div>
-                
-                {/* Hover Effect Border */}
-                <div className={`absolute inset-0 rounded-3xl border border-transparent bg-gradient-to-r ${project.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
               </motion.div>
             ))}
           </AnimatePresence>
