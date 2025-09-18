@@ -16,7 +16,7 @@ const Projects = () => {
     {
       id: 1,
       title: 'E-Commerce Tutorial & Management Platform',
-      description: 'Developed a comprehensive e-commerce tutorial platform featuring step-by-step video guidelines for business setup, marketing, logo design, product upload, and order management, providing an end-to-end learning and management solution.',
+      description: "Developed a comprehensive e-commerce tutorial platform featuring step-by-step video guidelines for business setup, marketing, logo design, product upload, and order management, providing an end-to-end learning and management solution. (Demo Login: Phone – 01687454958, Password – 123456).",
       image: '/image/incubation.webp',
       technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'ShadCN UI'],
       category: 'Frontend',
@@ -28,7 +28,7 @@ const Projects = () => {
     {
       id: 2,
       title: 'E-Commerce Website (Frontend Development)',
-      description: 'Developed a feature-rich e-commerce website with category-based product listings, promotional offers, and stock management, leveraging Redux Toolkit for efficient state management and scalable performance.',
+      description: 'Developed a feature-rich e-commerce website with category-based product listings, promotional offers, and stock management, leveraging Redux Toolkit for efficient state management and scalable performance. Integrated conversion APIs, marketing tools, and TikTok for enhanced tracking and campaign optimization.',
       image: '/image/fimon.webp',
       technologies: ['Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS', "Radix UI", "React Splide", "Lucide React"],
       category: 'Frontend',
@@ -39,75 +39,39 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: 'Portfolio Website',
-      description: 'A modern, responsive portfolio website built with Next.js and Framer Motion. Features 3D animations and smooth interactions.',
-      image: '/api/placeholder/400/250',
-      technologies: ['Next.js', 'TypeScript', 'Framer Motion', 'Three.js'],
+      title: 'Travel World Website',
+      description: 'Developed a pixel-perfect travel booking website from Figma design, featuring category-wise travel cards with advanced filters, detailed hotel pages (rooms, amenities, policies, ratings), FAQs, hot deals, tour packages, popular destinations, and smooth navigation.',
+      image: '/image/travel.webp',
+      technologies: ['Next.js', 'Tailwind CSS', "React Compare Slider","React Slick", "Slick Carousel", "Lucide React"],
       category: 'Frontend',
-      liveUrl: '#',
+      liveUrl: 'https://himel851-travel-world.netlify.app/',
       githubUrl: '#',
       featured: true,
       color: 'from-purple-500 to-pink-500'
     },
     {
       id: 4,
-      title: 'Weather Dashboard',
-      description: 'A weather application that displays current weather conditions and forecasts using OpenWeatherMap API with beautiful visualizations.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'JavaScript', 'CSS3', 'Chart.js'],
+      title: 'Deshify - E-commerce Website',
+      description: 'Built Deshify, a modern e-commerce platform with category and variation-based product listings, secure authentication, cart and checkout functionality, and an integrated blog section for enhanced user engagement.',
+      image: '/image/deshify.webp',
+      technologies: ['Next.js', 'React Bootstrap', "Context API","Lodash", "Google Chapcha", "React Carousel", "SASS"],
       category: 'Frontend',
-      liveUrl: '#',
+      liveUrl: 'https://deshify.com/',
       githubUrl: '#',
       featured: true,
       color: 'from-pink-500 to-red-500'
     },
     {
       id: 5,
-      title: 'Blog Platform',
-      description: 'A content management system for blogs with markdown support, user roles, and SEO optimization features.',
-      image: '/api/placeholder/400/250',
-      technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
+      title: 'Photo Editing Service Website',
+      description: "Developed a photo editing service website featuring advanced editing showcases, FAQs, service descriptions, client testimonials, and a portfolio gallery, ensuring a seamless experience for clients seeking professional image enhancement.",
+      image: '/image/photo.webp',
+      technologies: ['Next.js', 'Tailwind CSS', 'React Compare Slider', 'React Slick', 'Slick Carousel', 'Lucide React'],
       category: 'Full-Stack',
-      liveUrl: '#',
+      liveUrl: 'https://himel851-black-fox.netlify.app/',
       githubUrl: '#',
       featured: false,
       color: 'from-red-500 to-orange-500'
-    },
-    {
-      id: 6,
-      title: 'Social Media Dashboard',
-      description: 'Analytics dashboard for social media management with data visualization and reporting tools.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'D3.js', 'Node.js', 'Socket.io'],
-      category: 'Full-Stack',
-      liveUrl: '#',
-      githubUrl: '#',
-      featured: false,
-      color: 'from-orange-500 to-yellow-500'
-    },
-    {
-      id: 7,
-      title: 'Recipe Finder App',
-      description: 'A recipe discovery application with search, filtering, and favorite saving functionality.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'JavaScript', 'CSS3', 'Local Storage'],
-      category: 'Frontend',
-      liveUrl: '#',
-      githubUrl: '#',
-      featured: false,
-      color: 'from-yellow-500 to-green-500'
-    },
-    {
-      id: 8,
-      title: 'Chat Application',
-      description: 'Real-time chat application with user authentication, private messaging, and file sharing capabilities.',
-      image: '/api/placeholder/400/250',
-      technologies: ['React', 'Socket.io', 'Node.js', 'MongoDB'],
-      category: 'Full-Stack',
-      liveUrl: '#',
-      githubUrl: '#',
-      featured: false,
-      color: 'from-green-500 to-cyan-500'
     }
   ];
 
@@ -211,8 +175,7 @@ const Projects = () => {
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 className={`group relative bg-gradient-to-br from-slate-900/50 to-slate-800/50 rounded-3xl shadow-2xl hover:shadow-green-500/25 transition-all duration-500 overflow-hidden border border-slate-700/50 hover:border-green-500/50 backdrop-blur-xl project-card hover:before:absolute hover:before:inset-0 hover:before:rounded-3xl hover:before:border hover:before:border-transparent hover:before:bg-gradient-to-r hover:before:${project.color} hover:before:opacity-20 hover:before:transition-opacity hover:before:duration-500 hover:before:pointer-events-none`}
               >
-                {/* Holographic Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                
                 
                 {/* Project Image */}
                 <div className="relative h-48 bg-gradient-to-br from-slate-800 to-slate-700 overflow-hidden">
