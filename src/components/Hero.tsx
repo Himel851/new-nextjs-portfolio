@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Github, Linkedin, Mail, Sparkles, Zap, Target } from 'lucide-react';
+import { Download, Github, Linkedin, Mail, Zap, Target } from 'lucide-react';
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);

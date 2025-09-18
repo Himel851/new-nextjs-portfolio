@@ -30,11 +30,11 @@ export const getDeviceCapabilities = (): DeviceCapabilities => {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
   
   // Check device memory and CPU cores
-  const memoryGB = (navigator as any).deviceMemory || 4;
-  const cpuCores = (navigator as any).hardwareConcurrency || 4;
+  const memoryGB = (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 4;
+  const cpuCores = (navigator as Navigator & { hardwareConcurrency?: number }).hardwareConcurrency || 4;
   
   // Check refresh rate
-  const hasHighRefreshRate = window.screen && (window.screen as any).refreshRate > 60;
+  const hasHighRefreshRate = Boolean(window.screen && (window.screen as Screen & { refreshRate?: number }).refreshRate && (window.screen as Screen & { refreshRate: number }).refreshRate > 60);
 
   // Determine if device is low-end
   const isLowEnd = isMobile || 
@@ -84,11 +84,11 @@ export const getOptimizedPerformanceSettings = (): PerformanceSettings => {
 
 // Memory usage monitoring
 export const getMemoryUsage = () => {
-  if (typeof window === 'undefined' || !(performance as any).memory) {
+  if (typeof window === 'undefined' || !(performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory) {
     return null;
   }
   
-  const memory = (performance as any).memory;
+  const memory = (performance as Performance & { memory: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
   return {
     usedJSHeapSize: Math.round(memory.usedJSHeapSize / 1024 / 1024), // MB
     totalJSHeapSize: Math.round(memory.totalJSHeapSize / 1024 / 1024), // MB
@@ -138,7 +138,7 @@ export const optimizeAnimations = (settings: PerformanceSettings) => {
 };
 
 // Debounce function for performance
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
@@ -151,7 +151,7 @@ export const debounce = <T extends (...args: any[]) => any>(
 };
 
 // Throttle function for performance
-export const throttle = <T extends (...args: any[]) => any>(
+export const throttle = <T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {

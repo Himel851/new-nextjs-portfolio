@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, AlertTriangle, CheckCircle, Info, X } from 'lucide-react';
+import { Zap, AlertTriangle, CheckCircle, X } from 'lucide-react';
 
 const PerformanceMonitor = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,7 +11,7 @@ const PerformanceMonitor = () => {
     memory: 0,
     loadTime: 0,
     isLowPerformance: false,
-    suggestions: []
+    suggestions: [] as string[]
   });
   const [showDetails, setShowDetails] = useState(false);
 
@@ -29,11 +29,11 @@ const PerformanceMonitor = () => {
       
       if (currentTime - lastTime >= 1000) {
         const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
-        const memory = (performance as any).memory ? 
-          Math.round((performance as any).memory.usedJSHeapSize / 1024 / 1024) : 0;
+        const memory = (performance as Performance & { memory?: { usedJSHeapSize: number } }).memory ? 
+          Math.round((performance as Performance & { memory: { usedJSHeapSize: number } }).memory.usedJSHeapSize / 1024 / 1024) : 0;
         
         const isLowPerformance = fps < 30 || memory > 100;
-        const suggestions = [];
+        const suggestions: string[] = [];
         
         if (fps < 30) {
           suggestions.push('Reduce animation complexity');

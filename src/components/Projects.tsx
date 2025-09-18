@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Eye, Code, Globe, Smartphone, Rocket, Brain, Cpu, Atom, Sparkles, Target, Zap } from 'lucide-react';
+import { ExternalLink, Github, Eye, Code, Globe, Smartphone, Rocket, Brain, Sparkles, Target, Zap } from 'lucide-react';
 
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code, Globe, Smartphone, Database, Zap, Shield, Rocket, Brain, Cpu, Atom } from 'lucide-react';
+import { Code, Globe, Smartphone, Zap, Shield, Rocket, Brain, Cpu, Atom } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const About = () => {
