@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { 
   Mail, 
   Phone, 
@@ -9,8 +10,6 @@ import {
   Send, 
   Github, 
   Linkedin, 
-  Twitter, 
-  Globe,
   Rocket,
   Brain,
   Cpu,
@@ -34,6 +33,12 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+  // EmailJS configuration
+  const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ;
+  const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+  const EMAILJS_AUTO_REPLY_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID ;
+  const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ;
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -50,13 +55,71 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setSubmitStatus('idle');
+
+    try {
+      // 1. Send main message to you (himel.cse96@gmail.com)
+      const mainTemplateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'himel.cse96@gmail.com',
+        to_name: 'Himel',
+      };
+
+      console.log('Sending main email...');
+      // Send main email to you
+      await emailjs.send(
+        EMAILJS_SERVICE_ID!,
+        EMAILJS_TEMPLATE_ID!,
+        mainTemplateParams,
+        EMAILJS_PUBLIC_KEY!
+      );
+      console.log('Main email sent successfully');
+
+      // 2. Send auto-reply to user (only if auto-reply template is configured)
+      if (EMAILJS_AUTO_REPLY_TEMPLATE_ID && EMAILJS_AUTO_REPLY_TEMPLATE_ID !== 'template_auto_reply_id' && EMAILJS_AUTO_REPLY_TEMPLATE_ID !== 'template_c8njlfv') {
+        const autoReplyParams = {
+          from_name: formData.name,
+          subject: formData.subject,
+          to_email: formData.email,
+        };
+
+        console.log('Sending auto-reply email...');
+        // Send auto-reply to user
+        await emailjs.send(
+          EMAILJS_SERVICE_ID!,
+          EMAILJS_AUTO_REPLY_TEMPLATE_ID!,
+          autoReplyParams,
+          EMAILJS_PUBLIC_KEY!
+        );
+        console.log('Auto-reply email sent successfully');
+      } else {
+        console.log('Auto-reply template not configured, skipping auto-reply');
+      }
+
+      // Success
       setSubmitStatus('success');
-      setTimeout(() => setSubmitStatus('idle'), 3000);
-    }, 2000);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+      
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+      
+      // Hide error message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -252,7 +315,7 @@ const Contact = () => {
                     className="flex items-center gap-3 p-4 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl text-green-400 backdrop-blur-xl"
                   >
                     <CheckCircle size={20} />
-                    <span className="font-medium">Message sent successfully!</span>
+                    <span className="font-medium">Message sent successfully! Check your email for confirmation.</span>
                   </motion.div>
                 )}
                 {submitStatus === 'error' && (
@@ -292,21 +355,21 @@ const Contact = () => {
                 {
                   icon: Mail,
                   title: 'Email',
-                  value: 'hello@yourportfolio.com',
-                  href: 'mailto:hello@yourportfolio.com',
+                  value: 'himel.cse96@gmail.com',
+                  href: 'mailto:himel.cse96@gmail.com',
                   color: 'from-pink-500 to-purple-500'
                 },
                 {
                   icon: Phone,
                   title: 'Phone',
-                  value: '+1 (555) 123-4567',
-                  href: 'tel:+15551234567',
+                  value: '+8801687454958',
+                  href: 'tel:+8801687454958',
                   color: 'from-purple-500 to-indigo-500'
                 },
                 {
                   icon: MapPin,
                   title: 'Location',
-                  value: 'Remote / Worldwide',
+                  value: 'Uttara, Dhaka',
                   href: '#',
                   color: 'from-indigo-500 to-blue-500'
                 }
@@ -343,10 +406,8 @@ const Contact = () => {
               </h4>
               <div className="flex justify-center gap-6">
                 {[
-                  { icon: Github, href: '#', label: 'GitHub', color: 'from-gray-600 to-gray-800' },
-                  { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
-                  { icon: Twitter, href: '#', label: 'Twitter', color: 'from-sky-500 to-blue-600' },
-                  { icon: Globe, href: '#', label: 'Website', color: 'from-purple-500 to-pink-500' }
+                  { icon: Github, href: 'https://github.com/Himel851', label: 'GitHub', color: 'from-gray-600 to-gray-800' },
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/nazmulhimel96/', label: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
                 ].map((social, index) => (
                   <motion.a
                     key={social.label}

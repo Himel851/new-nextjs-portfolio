@@ -19,6 +19,7 @@
     "performance:check": "npm run dev & sleep 5 && npm run performance"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@gsap/react": "^2.1.2",
     "@headlessui/react": "^2.2.7",
     "framer-motion": "^12.23.12",
