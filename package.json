@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "npm cache clean --force",
     "dev": "next dev",
     "build": "next build",
     "export": "next build && next export",
