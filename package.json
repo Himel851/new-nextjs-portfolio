@@ -50,5 +50,9 @@
     "defaults",
     "not ie 11",
     "not ie_mob 11"
-  ]
+  ],
+  "resolutions": {
+  "damerau-levenshtein": "1.0.8"
+  }
+
 }
