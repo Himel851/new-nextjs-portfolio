@@ -38,51 +38,31 @@ const Hero = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   }, [isClient]);
 
-  // Memoize grid lines to prevent unnecessary re-renders
+  // Simplified static grid lines for better performance
   const gridLines = useMemo(() => {
     if (!isVisible) return null;
     
     return (
       <>
-        {[...Array(6)].map((_, i) => (
-          <motion.div
+        {[...Array(3)].map((_, i) => (
+          <div
             key={i}
-            className="absolute h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent"
+            className="absolute h-px bg-gradient-to-r from-transparent via-indigo-500/10 to-transparent"
             style={{
-              top: `${i * 15}%`,
+              top: `${i * 30}%`,
               left: '0%',
               right: '0%',
             }}
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              scaleX: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
           />
         ))}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
+        {[...Array(3)].map((_, i) => (
+          <div
             key={`v-${i}`}
-            className="absolute w-px bg-gradient-to-b from-transparent via-indigo-500/20 to-transparent"
+            className="absolute w-px bg-gradient-to-b from-transparent via-indigo-500/10 to-transparent"
             style={{
-              left: `${i * 15}%`,
+              left: `${i * 30}%`,
               top: '0%',
               bottom: '0%',
-            }}
-            initial={{ opacity: 0, scaleY: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              scaleY: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.3 + 1.5,
             }}
           />
         ))}
@@ -90,51 +70,23 @@ const Hero = () => {
     );
   }, [isVisible]);
 
-  // Memoize floating elements
+  // Simplified static floating elements
   const floatingElements = useMemo(() => {
     if (!isVisible || !isClient) return null;
     
-    // Deterministic positions and animations
-    const elements = [
-      { left: '20%', top: '30%', duration: 4.5, delay: 0.3 },
-      { left: '80%', top: '70%', duration: 5.2, delay: 1.1 }
-    ];
-    
     return (
       <>
-        {elements.map((element, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full"
-            style={{
-              left: element.left,
-              top: element.top,
-            }}
-            initial={{ opacity: 0, y: 0, scale: 1 }}
-            animate={{
-              y: [0, -15, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: element.duration,
-              repeat: Infinity,
-              delay: element.delay,
-            }}
-          />
-        ))}
+        <div className="absolute w-1 h-1 bg-cyan-400/30 rounded-full" style={{ left: '20%', top: '30%' }} />
+        <div className="absolute w-1 h-1 bg-cyan-400/30 rounded-full" style={{ left: '80%', top: '70%' }} />
       </>
     );
   }, [isVisible, isClient]);
 
   return (
     <section ref={containerRef} className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
-      {/* Enhanced 2D Background with CSS gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.15),rgba(255,255,255,0))]">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(120,119,198,0.03)_50%,transparent_100%)] animate-pulse"></div>
-        {/* Additional 2D background layers */}
-        <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,rgba(6,182,212,0.1),rgba(139,92,246,0.1),rgba(236,72,153,0.1),rgba(6,182,212,0.1))] animate-spin" style={{animationDuration: '20s'}}></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.05)_0%,transparent_70%)] animate-pulse" style={{animationDuration: '4s'}}></div>
+      {/* Simplified background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),rgba(255,255,255,0))]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(120,119,198,0.02)_50%,transparent_100%)]"></div>
       </div>
 
       {/* Optimized Grid Lines */}
@@ -177,22 +129,14 @@ const Hero = () => {
               <span className="gradient-text bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-600 bg-clip-text text-transparent">
                 FRONTEND
               </span>
-              <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-600 rounded-lg blur opacity-25"
-                animate={{ opacity: isVisible ? [0.25, 0.4, 0.25] : 0.25 }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-600 rounded-lg blur opacity-20" />
             </span>
             <br />
             <span className="relative">
               <span className="gradient-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
                 DEVELOPER
               </span>
-              <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-lg blur opacity-25"
-                animate={{ opacity: isVisible ? [0.25, 0.4, 0.25] : 0.25 }}
-                transition={{ duration: 3, delay: 1.5 }}
-              />
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-lg blur opacity-20" />
             </span>
           </motion.h1>
 
@@ -218,9 +162,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
           >
-            <motion.button
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+            <button
+              onClick={() => window.open('https://drive.google.com/file/d/1zE-aBJu5o8QPm_uIKVNLuahJqSp41iBK/view?usp=drive_link', '_blank', 'noopener,noreferrer')}
               className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -229,11 +172,9 @@ const Hero = () => {
                 <span>DOWNLOAD CV</span>
                 <Zap size={20} className="text-yellow-300" />
               </div>
-            </motion.button>
+            </button>
             
-            <motion.button
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+            <button
               onClick={scrollToAbout}
               className="group relative px-8 py-4 border-2 border-cyan-500 text-cyan-400 font-bold rounded-2xl hover:bg-cyan-500 hover:text-black transition-all duration-300 overflow-hidden"
             >
@@ -242,7 +183,7 @@ const Hero = () => {
                 <Target size={20} />
                 EXPLORE MORE
               </span>
-            </motion.button>
+            </button>
           </motion.div>
 
           {/* Optimized Social Links */}
@@ -257,18 +198,16 @@ const Hero = () => {
               { icon: Linkedin, href: 'https://www.linkedin.com/in/nazmulhimel96/', label: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
               { icon: Mail, href: 'mailto:himel.cse96@gmail.com', label: 'Email', color: 'from-red-500 to-red-700' },
             ].map((social) => (
-              <motion.a
+              <a
                 key={social.label}
                 href={social.href}
                 rel="noopener noreferrer"
                 target="_blank"
-                whileHover={{ scale: 1.08, y: -3, rotate: 360 }}
-                whileTap={{ scale: 0.92 }}
                 className={`p-4 bg-gradient-to-br ${social.color} rounded-2xl shadow-2xl hover:shadow-lg transition-all duration-300 text-white backdrop-blur-sm border border-white/20`}
                 aria-label={social.label}
               >
                 <social.icon size={28} />
-              </motion.a>
+              </a>
             ))}
           </motion.div>
         </div>
@@ -277,13 +216,10 @@ const Hero = () => {
       {/* Optimized Floating Elements */}
       {floatingElements}
 
-      {/* Enhanced 2D Energy Field Effect */}
+      {/* Simplified energy field effect */}
       {isVisible && (
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-radial from-cyan-500/3 via-transparent to-transparent animate-pulse" />
-          <div className="absolute inset-0 bg-gradient-radial from-purple-500/3 via-transparent to-transparent animate-pulse" style={{animationDelay: '1.5s'}} />
-          {/* Additional 2D effects */}
-          <div className="absolute inset-0 bg-[conic-gradient(from_45deg_at_50%_50%,rgba(6,182,212,0.05),rgba(139,92,246,0.05),rgba(236,72,153,0.05))] animate-spin" style={{animationDuration: '30s'}}></div>
+          <div className="absolute inset-0 bg-gradient-radial from-cyan-500/2 via-transparent to-transparent" />
         </div>
       )}
     </section>

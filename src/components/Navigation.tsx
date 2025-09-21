@@ -77,8 +77,7 @@ const Navigation = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+            <div
               className="flex items-center gap-3 cursor-pointer"
               onClick={() => scrollToSection('home')}
             >
@@ -97,15 +96,13 @@ const Navigation = () => {
                   FRONTEND DEVELOPER
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               {navItems.map((item) => (
-                <motion.button
+                <button
                   key={item.id}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection(item.id)}
                   className={`relative group px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                     activeSection === item.id
@@ -122,24 +119,17 @@ const Navigation = () => {
                   
                   {/* Active Indicator */}
                   {activeSection === item.id && (
-                    <motion.div
-                      layoutId="activeSection"
-                      className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl border border-cyan-500/30"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl border border-cyan-500/30" />
                   )}
                   
                   {/* Hover Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/20 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                </motion.button>
+                </button>
               ))}
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden p-3 bg-gradient-to-br from-slate-800/50 to-slate-700/50 rounded-2xl border border-slate-600/50 backdrop-blur-xl"
             >
@@ -166,7 +156,7 @@ const Navigation = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </button>
           </div>
         </div>
       </motion.nav>
