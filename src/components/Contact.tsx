@@ -157,25 +157,15 @@ const Contact = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(236,72,153,0.1),transparent_50%)]"></div>
       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(236,72,153,0.03)_50%,transparent_70%)]"></div>
       
-      {/* Floating Elements */}
+      {/* Simplified static elements */}
       <div className="absolute inset-0 pointer-events-none">
-        {isClient && floatingElements.map((item) => (
-          <motion.div
+        {isClient && floatingElements.slice(0, 6).map((item) => (
+          <div
             key={item.id}
-            className="absolute w-1 h-1 bg-pink-400 rounded-full"
+            className="absolute w-1 h-1 bg-pink-400/30 rounded-full"
             style={{
               left: item.left,
               top: item.top,
-            }}
-            animate={{
-              y: [0, -60, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [0.5, 1.5, 0.5],
-            }}
-            transition={{
-              duration: item.duration,
-              repeat: Infinity,
-              delay: item.delay,
             }}
           />
         ))}
@@ -281,11 +271,9 @@ const Contact = () => {
                 />
               </div>
               
-              <motion.button
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
                 className="group relative w-full px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold rounded-2xl shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -303,7 +291,7 @@ const Contact = () => {
                     </>
                   )}
                 </span>
-              </motion.button>
+              </button>
 
               {/* Submission Status */}
               <AnimatePresence>
@@ -410,23 +398,17 @@ const Contact = () => {
                   { icon: Linkedin, href: 'https://www.linkedin.com/in/nazmulhimel96/', label: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
                   { icon: Mail, href: 'mailto:himel.cse96@gmail.com', label: 'Email', color: 'from-red-500 to-red-700' },
                   { icon: Phone, href: 'tel:+8801687454958', label: 'Call', color: 'from-green-500 to-green-700' },
-                ].map((social, index) => (
-                  <motion.a
+                ].map((social) => (
+                  <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.2, y: -10, rotate: 360 }}
-                    whileTap={{ scale: 0.9 }}
                     className={`p-4 bg-gradient-to-br ${social.color} rounded-2xl shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 text-white backdrop-blur-sm border border-white/20`}
                     aria-label={social.label}
                   >
                     <social.icon size={28} />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
