@@ -32,7 +32,7 @@ const Projects = () => {
       image: '/image/fimon.webp',
       technologies: ['Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS', "Radix UI", "React Splide", "Lucide React"],
       category: 'Frontend',
-      liveUrl: 'https://fimon.com.bd/',
+      liveUrl: 'https://mensvaly.com/',
       githubUrl: '#',
       featured: true,
       color: 'from-blue-500 to-purple-500'
